@@ -5,14 +5,15 @@ import 'package:http_certificate_pinning/http_certificate_pinning.dart';
 
 class CertificatePinningInterceptor extends Interceptor {
   final List<String> _allowedSHAFingerprints;
+  final String basePath;
 
-  CertificatePinningInterceptor(this._allowedSHAFingerprints);
+  CertificatePinningInterceptor({this._allowedSHAFingerprints,this.basePath});
 
   @override
   Future onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     final secure = await HttpCertificatePinning.check(
-        serverURL: options.baseUrl,
+        serverURL: basePath == null || basePath =="" ? options.baseUrl : basePath,
         headerHttp: options.headers.map((a, b) => MapEntry(a, b.toString())),
         sha: SHA.SHA256,
         allowedSHAFingerprints: _allowedSHAFingerprints,
