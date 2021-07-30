@@ -7,7 +7,7 @@ class CertificatePinningInterceptor extends Interceptor {
   final List<String> allowedSHAFingerprints;
   final String basePath;
 
-  CertificatePinningInterceptor({this._allowedSHAFingerprints,this.basePath});
+  CertificatePinningInterceptor({this.allowedSHAFingerprints,this.basePath});
 
   @override
   Future onRequest(
@@ -16,7 +16,7 @@ class CertificatePinningInterceptor extends Interceptor {
         serverURL: basePath == null || basePath =="" ? options.baseUrl : basePath,
         headerHttp: options.headers.map((a, b) => MapEntry(a, b.toString())),
         sha: SHA.SHA256,
-        allowedSHAFingerprints: _allowedSHAFingerprints,
+        allowedSHAFingerprints: allowedSHAFingerprints,
         timeout: 50);
 
     if (secure.contains("CONNECTION_SECURE")) {
