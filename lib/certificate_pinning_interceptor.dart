@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:http_certificate_pinning/http_certificate_pinning.dart';
 
 class CertificatePinningInterceptor extends Interceptor {
-  final List<String> _allowedSHAFingerprints;
+  final List<String> allowedSHAFingerprints;
   final String basePath;
 
   CertificatePinningInterceptor({this._allowedSHAFingerprints,this.basePath});
